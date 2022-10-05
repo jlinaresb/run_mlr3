@@ -28,10 +28,10 @@ for (i in seq_along(files)) {
     cat(paste("#SBATCH", "-N", nodes, "\n"))
     cat(paste("#SBATCH", "-n", ntasks, "\n"))
     cat(paste("name=", gsub(".rds", "", files[i]), "\n", sep = ""))
-    cat(paste("data=", inputDir, files[i], "\n", sep = ""))
+    cat(paste("data=", file.path(inputDir, files[i]), "\n", sep = ""))
     cat(paste("Rscript ", models_path,
               input_algs[j], " $data", " $name", sep = ""))
     sink(file = NULL)
-    system(new_file)
+    system(paste(exec, new_file))
   }
 }

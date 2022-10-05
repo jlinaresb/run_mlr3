@@ -4,7 +4,6 @@ base_path <- here::here()
 models_path <- file.path(base_path, "code/models/")
 builders_path <- file.path(base_path, "code/builders/")
 exec_path <- file.path(base_path, "code/Exec/")
-file.remove(paste0(exec_path, list.files(exec_path)))
 
 
 # Paths
