@@ -1,12 +1,5 @@
 # Glmnet function
 # =======
-require(mlr3)
-require(mlr3fselect)
-require(mlr3tuning)
-require(mlr3learners)
-require(mlr3filters)
-require(mlr3pipelines)
-
 setwd(here::here())
 source("code/configFile.r")
 source("code/utils/build_learners.r")
