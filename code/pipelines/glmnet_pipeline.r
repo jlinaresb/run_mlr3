@@ -7,53 +7,49 @@ require(mlr3learners)
 require(mlr3filters)
 require(mlr3pipelines)
 
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-source('../paths.r')
-source('../utils/build_learners.r')
-source('../utils/tuners.r')
+setwd(here::here())
+source("code/configFile.r")
+source("code/utils/build_learners.r")
+source("code/utils/tuners.r")
 
-glmnet_pipeline = function(data, 
-                           dataname,
-                           target = 'target',
-                           positive = '', 
-                           removeConstant = F,
-                           normalize = F,
-                           filterFeatures = F,
-                           outDir = F)
-  {
-  
+glmnet_pipeline <- function(data,
+                            dataname,
+                            target,
+                            positive,
+                            removeConstant,
+                            normalize,
+                            filterFeatures,
+                            outDir){
+
+  data[, target] <- as.factor(data[, target])
   # Make task
-  task = TaskClassif$new(backend = data,
-                         target = target,
-                         positive = positive)
-  
+  task <- TaskClassif$new(id = dataname,
+                          backend = data,
+                          target = target,
+                          positive = positive)
   # Remove constant features
-  if (removeConstant == T) {
+  if (removeConstant == TRUE) {
     print("Removing constant features")
-    rcf = po("removeconstants")
-    task = rcf$train(list(task = task))$output
+    rcf <- po("removeconstants")
+    task <- rcf$train(list(task = task))$output
   }
-  
   # Normalizing features
-  if (normalize == T) {
+  if (normalize == TRUE) {
     print("Normalizing features")
-    nf = po("scale")
-    task = nf$train(input = list(task))$output
+    nf <- po("scale")
+    task <- nf$train(input = list(task))$output
   }
-  
   # Filter features
-  if (filterFeatures == T) {
+  if (filterFeatures == TRUE) {
     print("Filtering features")
-    filter = po("filter", filter = flt("kruskal_test"), filter.frac = 0.3)
-    task = filter$train(list(task = task))$output
+    filter <- po("filter", filter = flt("kruskal_test"), filter.frac = 0.3)
+    task <- filter$train(list(task = task))$output
   }
-  
-  # Learner 
-  learner = glmnet()
-  
+  # Learner
+  learner <- glmnet()
   # Nested resampling
-  rr = fselect_nested(
-    method = "genetic_search",
+  rr <- fselect_nested(
+    method = "random_search",
     task = task,
     learner = learner,
     inner_resampling = rsmp("holdout"),
@@ -62,10 +58,5 @@ glmnet_pipeline = function(data,
     term_evals = 100,
     batch_size = 20
   )
-  
-  saveRDS(rr, file = paste0(outDir, 'rsmp_glmnet_', dataname, '.rds'))
-  
+  saveRDS(rr, file = paste0(outDir, "rsmp_glmnet_", dataname, ".rds"))
 }
-
-
-

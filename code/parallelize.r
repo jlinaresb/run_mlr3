@@ -25,7 +25,7 @@ for (i in seq_along(files)) {
     cat(paste("#SBATCH", paste0("--mem=", mem), "\n"))
     cat(paste("#SBATCH", "-N", nodes, "\n"))
     cat(paste("#SBATCH", "-n", ntasks, "\n"))
-    cat(paste("name=", files[i], "\n", sep = ""))
+    cat(paste("name=", gsub(".rds", "", files[i]), "\n", sep = ""))
     cat(paste("data=", inputDir, files[i], "\n", sep = ""))
     cat(paste("Rscript ", models_path,
               input_algs[j], " $data", " $name", sep = ""))
