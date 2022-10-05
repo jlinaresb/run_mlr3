@@ -1,4 +1,5 @@
 setwd(here::here())
+source("requirements.r")
 source("code/configFile.r")
 source("code/pipelines/glmnet_pipeline.r")
 

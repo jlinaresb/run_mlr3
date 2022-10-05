@@ -1,3 +1,14 @@
+args <- commandArgs(trailingOnly = TRUE)
+ExperimentName <- args[1]
+inputDir <- args[2]
+outDir <- args[3]
+
+outDir <- file.path(outDir, ExperimentName)
+if (dir.exists(outDir) == FALSE) {
+    message(paste("Creating", ExperimentName, "directory!"))
+    dir.create(outDir)
+}
+
 setwd(here::here())
 source("code/configFile.r")
 

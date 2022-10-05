@@ -13,18 +13,11 @@ seed <- 1993
 
 # Arguments
 # ===
-ExperimentName <- "example"
-inputDir <- "~/tmp/example_mlr3/data"
-outDir <- "~/tmp/example_mlr3/results"
+#ExperimentName <- "example"
+#inputDir <- "~/tmp/example_mlr3/data"
+#outDir <- "~/tmp/example_mlr3/results"
 path_algs <- models_path
 pattern <- ".r"
-
-outDir <- file.path(outDir, ExperimentName)
-if (dir.exists(outDir) == FALSE) {
-    message(paste("Creating", ExperimentName, "directory!"))
-    dir.create(outDir)
-}
-
 
 # Input data characteristics
 # ===
