@@ -1,7 +1,9 @@
 args <- commandArgs(trailingOnly = TRUE)
-ExperimentName <- args[1]
-inputDir <- args[2]
-outDir <- args[3]
+
+cesga <- ifelse(args[1] == "cesga", TRUE, FALSE)
+ExperimentName <- args[2]
+inputDir <- args[3]
+outDir <- args[4]
 
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {

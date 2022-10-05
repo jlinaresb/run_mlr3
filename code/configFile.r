@@ -8,7 +8,6 @@ exec_path <- file.path(base_path, "code/Exec/")
 
 # Paths
 # ===
-cesga <- FALSE
 seed <- 1993
 
 # Arguments
