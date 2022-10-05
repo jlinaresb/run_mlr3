@@ -1,6 +1,5 @@
 setwd(here::here())
-source("configFile.r")
-source("paths.r")
+source("code/configFile.r")
 
 if (cesga == TRUE) {
   exec <- "sbatch"
@@ -9,8 +8,8 @@ if (cesga == TRUE) {
 }
 
 # Execute in parallel from Cesga
-files <- dir(path = inputDir)
-input_algs <- dir(path = path_algs,
+files <- list.files(path = inputDir)
+input_algs <- list.files(path = path_algs,
                  pattern = pattern)
 
 for (i in seq_along(files)) {
@@ -18,6 +17,7 @@ for (i in seq_along(files)) {
     sink(paste0(
       exec_path,
       gsub(".r", "", input_algs[j], fixed = TRUE),
+      "_",
       gsub(".rds", ".sh", files[i])))
     cat("#!/bin/bash \n")
     cat(paste("#SBATCH", "-p", part, "\n"))
@@ -30,9 +30,9 @@ for (i in seq_along(files)) {
     cat(paste("Rscript ", models_path,
               input_algs[j], " $data", " $name", sep = ""))
     sink(file = NULL)
-    # system(paste(exec, " ",
-    #              exec_path,
-    #              gsub(".r", "", input_algs[j], fixed = T),
-    #              gsub(".rds", ".sh", files[i])))
+    system(paste(exec, " ",
+                 exec_path,
+                 gsub(".r", "", input_algs[j], fixed = TRUE),
+                 gsub(".rds", ".sh", files[i])))
   }
 }
