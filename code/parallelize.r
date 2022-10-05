@@ -14,11 +14,13 @@ input_algs <- list.files(path = path_algs,
 
 for (i in seq_along(files)) {
   for (j in seq_along(input_algs)) {
-    sink(paste0(
+    new_file <- paste0(
       exec_path,
       gsub(".r", "", input_algs[j], fixed = TRUE),
       "_",
-      gsub(".rds", ".sh", files[i])))
+      gsub(".rds", ".sh", files[i]))
+    # Creating new file
+    sink(new_file)
     cat("#!/bin/bash \n")
     cat(paste("#SBATCH", "-p", part, "\n"))
     cat(paste("#SBATCH", "-t", time, "\n"))
@@ -30,9 +32,6 @@ for (i in seq_along(files)) {
     cat(paste("Rscript ", models_path,
               input_algs[j], " $data", " $name", sep = ""))
     sink(file = NULL)
-    system(paste(exec, " ",
-                 exec_path,
-                 gsub(".r", "", input_algs[j], fixed = TRUE),
-                 gsub(".rds", ".sh", files[i])))
+    system(new_file)
   }
 }
