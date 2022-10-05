@@ -20,8 +20,8 @@ pattern <- ".r"
 
 # Input data characteristics
 # ===
-target <- "label"
-positive <- "no"
+target <- "response"
+positive <- "responder"
 
 # Data preprocessing
 # ===
