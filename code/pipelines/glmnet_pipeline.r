@@ -14,6 +14,7 @@ glmnet_pipeline <- function(data,
                             filterFeatures,
                             outDir){
 
+  data <- as.data.frame(data)
   data[, target] <- as.factor(data[, target])
   # Make task
   task <- TaskClassif$new(id = dataname,
