@@ -37,6 +37,9 @@ glmnet <- function() {
   inner <- rsmp("holdout", ratio = 0.7)
   # Make learner
   learner <- lrn("classif.glmnet", predict_type = "prob")
+  learner$encapsulate <- c(train = "evaluate", predict = "evaluate")
+  learner$fallback <- lrn("classif..acc", predict_type = "prob")
+  # Establishing measure
   measure = msr("classif.acc")
   # Hyperparameter space
   ps <- ps(

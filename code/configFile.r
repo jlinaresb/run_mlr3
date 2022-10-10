@@ -12,9 +12,9 @@ seed <- 1993
 
 # Arguments
 # ===
-#ExperimentName <- "example"
-#inputDir <- "~/tmp/example_mlr3/data"
-#outDir <- "~/tmp/example_mlr3/results"
+ExperimentName <- "cells_antiTNF"
+inputDir <- "~/git/run_mlr3/data/antiTNF/"
+outDir <- "~/git/run_mlr3/results/"
 path_algs <- models_path
 pattern <- ".r"
 
@@ -27,7 +27,7 @@ positive <- "responder"
 # ===
 removeConstant <- TRUE
 normalize <- TRUE
-filterFeatures <- TRUE
+filterFeatures <- FALSE
 
 # Cesga arguments
 # ===
