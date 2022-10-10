@@ -12,7 +12,7 @@ randomForest <- function() {
   ps <- ps(
     mtry = p_int(lower = 3, upper = 20),
     nodesize = p_int(lower = 2, upper = 5),
-    ntree = p_int(1000L)
+    ntree = p_int(300L)
   )
   # Autotuner
   at <- AutoTuner$new(learner = learner,
@@ -38,7 +38,7 @@ glmnet <- function() {
   # Make learner
   learner <- lrn("classif.glmnet", predict_type = "prob")
   learner$encapsulate <- c(train = "evaluate", predict = "evaluate")
-  learner$fallback <- lrn("classif..acc", predict_type = "prob")
+  learner$fallback <- lrn("classif.log_reg", predict_type = "prob")
   # Establishing measure
   measure = msr("classif.acc")
   # Hyperparameter space

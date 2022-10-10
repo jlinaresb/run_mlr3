@@ -1,18 +1,18 @@
-# Glmnet function
+# RandomForest function
 # =======
 setwd(here::here())
 source("code/configFile.r")
 source("code/utils/build_learners.r")
 source("code/utils/tuners.r")
 
-glmnet_pipeline <- function(data,
-                            dataname,
-                            target,
-                            positive,
-                            removeConstant,
-                            normalize,
-                            filterFeatures,
-                            outDir){
+rf_pipeline <- function(data,
+                        dataname,
+                        target,
+                        positive,
+                        removeConstant,
+                        normalize,
+                        filterFeatures,
+                        outDir){
 
   data <- as.data.frame(data)
   data[, target] <- as.factor(data[, target])
@@ -40,7 +40,7 @@ glmnet_pipeline <- function(data,
     task <- filter$train(list(task = task))$output
   }
   # Learner
-  learner <- glmnet()
+  learner <- randomForest()
   # Nested resampling
   rr <- fselect_nested(
     method = "genetic_search",
@@ -51,5 +51,5 @@ glmnet_pipeline <- function(data,
     measure = msr("classif.ce"),
     term_evals = 100
   )
-  saveRDS(rr, file = paste0(outDir, "rsmp_glmnet_", dataname, ".rds"))
+  saveRDS(rr, file = paste0(outDir, "rsmp_rf_", dataname, ".rds"))
 }
