@@ -1,7 +1,10 @@
-# SCRIPT INCOMPLETO!!!    
+# SCRIPT INCOMPLETO!!!
+
+models <- ""
+
 
 # Extract models
-k = length(rr$predictions())
+k <- length(rr$predictions())
 
 finalModels = list()
 for (i in seq_along(1:k)) {

@@ -36,6 +36,8 @@ glmnet_pipeline <- function(data,
                           nevals,
                           measure)
   # Save resampling object
-  saveRDS(rr,
+  res <- list(task = task,
+              result = rr)
+  saveRDS(res,
           file = paste0(outDir, "rsmp_glmnet_", dataname, ".rds"))
 }
