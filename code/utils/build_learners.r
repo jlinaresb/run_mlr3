@@ -1,6 +1,6 @@
 # Random Forest
 # ====
-randomForest <- function() {
+randomForest <- function(measure, method, nevals) {
   tuner <- tnr("grid_search", resolution = 50)
   terminator <- trm("evals", n_evals = 50)
   # Inner
@@ -8,7 +8,7 @@ randomForest <- function() {
   # Make learner
   learner <- lrn("classif.randomForest", predict_type = "prob")
   # Establishing Measure
-  measure <- msr("classif.acc")
+  measure <- msr(measure)
   # Hyperparameter space
   ps <- ps(
     mtry = p_int(lower = 3, upper = 8),
@@ -25,13 +25,21 @@ randomForest <- function() {
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
                      store_models = FALSE)
-  return(at)
+  # Autotuner features
+  afs <- auto_fselector(
+    method = method,
+    learner = at,
+    resampling = inner,
+    measure = measure,
+    term_evals = nevals
+  )
+  return(afs)
 }
 
 
 # Glmnet
 # ===
-glmnet <- function() {
+glmnet <- function(measure, method, nevals) {
   tuner <- tnr("grid_search", resolution = 50)
   terminator <- trm("evals", n_evals = 50)
   # Innter
@@ -41,13 +49,13 @@ glmnet <- function() {
   learner$encapsulate <- c(train = "evaluate", predict = "evaluate")
   learner$fallback <- lrn("classif.log_reg", predict_type = "prob")
   # Establishing measure
-  measure <- msr("classif.acc")
+  measure <- msr(measure)
   # Hyperparameter space
   ps <- ps(
     alpha = p_dbl(lower = 0, upper = 1),
     s = p_dbl(lower = 0, upper = 1)
   )
-  # Autotuner
+  # Autotuner hyperparameters
   at <- AutoTuner$new(learner = learner,
                      resampling = inner,
                      measure = measure,
@@ -57,13 +65,21 @@ glmnet <- function() {
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
                      store_models = FALSE)
-  return(at)
+  # Autotuner features
+   afs <- auto_fselector(
+    method = method,
+    learner = at,
+    resampling = inner,
+    measure = measure,
+    term_evals = nevals
+  )
+  return(afs)
 }
 
 
 # SVM
 # ===
-svm <- function() {
+svm <- function(measure, method, nevals) {
   tuner <- tnr("grid_search", resolution = 50)
   terminator <- trm("evals", n_evals = 50)
   # Inner
@@ -71,15 +87,15 @@ svm <- function() {
   # Make learner
   learner <- lrn("classif.svm", predict_type = "prob")
   # Establishing measure
-  measure <- msr("classif.acc")
+  measure <- msr(measure)
   # Hyperparameter space
   ps <- ps(
     cost = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
     gamma = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
-    kernel = p_fct(levels = c("polynomial", "radial", "sigmoid", "linear")),
-    degree = p_int(lower = 1, upper = 4)
+    kernel = p_fct(levels = c("polynomial", "radial", "sigmoid")),
+    type = p_fct(levels = "C-classification")
   )
-  # Autotuner
+  # Autotuner hyperparameters
   at <- AutoTuner$new(learner = learner,
                      resampling = inner,
                      measure = measure,
@@ -89,12 +105,20 @@ svm <- function() {
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
                      store_models = FALSE)
-  return(at)
+  # Autotuner features
+  afs <- auto_fselector(
+    method = method,
+    learner = at,
+    resampling = inner,
+    measure = measure,
+    term_evals = nevals
+  )
+  return(afs)
 }
 
 
 # XGBoost
-xgboost <- function(){
+xgboost <- function(measure, method, nevals){
   tuner <- tnr("grid_search", resolution = 50)
   terminator <- trm("evals", n_evals = 50)
   # Inner
@@ -102,7 +126,7 @@ xgboost <- function(){
   # Make learner
   learner <- lrn("classif.xgboost", predict_type = "prob")
   # Establishing measure
-  measure <- msr("classif.acc")
+  measure <- msr(measure)
   # Hyperparameter space
   ps <- ps(
     booster = p_fct(levels = c("gbtree", "gblinear", "dart")),
@@ -121,5 +145,13 @@ xgboost <- function(){
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
                      store_models = FALSE)
-  return(at)
+  # Autotuner features
+  afs <- auto_fselector(
+    method = method,
+    learner = at,
+    resampling = inner,
+    measure = measure,
+    term_evals = nevals
+    )
+  return(afs)
 }

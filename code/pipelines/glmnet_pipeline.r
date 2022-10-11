@@ -29,15 +29,14 @@ glmnet_pipeline <- function(data,
                      normalize,
                      filterFeatures)
   # Learner
-  learner <- glmnet()
+  learner <- glmnet(measure, method, nevals)
   # Parallelization
   future::plan(list("sequential", "multisession"))
-  # Nested resampling
-  rr <- nested_resampling(task,
-                          learner,
-                          method,
-                          nevals,
-                          measure)
+  # Resampling
+  rr <- resample(task,
+                 learner,
+                 resampling = rsmp("cv", folds = 10),
+                 store_models = TRUE)
   # Save resampling object
   res <- list(task = task,
               result = rr)

@@ -25,7 +25,7 @@ if (dir.exists(outDir) == FALSE) {
 # Algorithms
 # ===
 path_algs <- models_path
-pattern <- "xgboost.r"
+pattern <- "glmnet.r"
 
 # Input data characteristics
 # ===
@@ -42,7 +42,7 @@ filterFeatures <- TRUE
 # ===
 method <- "exhaustive_search"
 nevals <- 10
-measure <- "classif.ce"
+measure <- "classif.acc"
 
 # Cesga arguments
 # ===
