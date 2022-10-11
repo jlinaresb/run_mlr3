@@ -9,14 +9,23 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Paths
 # ===
 seed <- 1993
+cesga <- FALSE
 
 # Arguments
 # ===
 ExperimentName <- "cells_antiTNF"
 inputDir <- "~/git/run_mlr3/data/antiTNF/"
 outDir <- "~/git/run_mlr3/results/"
+outDir <- file.path(outDir, ExperimentName)
+if (dir.exists(outDir) == FALSE) {
+    message(paste("Creating", ExperimentName, "directory!"))
+    dir.create(outDir)
+}
+
+# Algorithms
+# ===
 path_algs <- models_path
-pattern <- ".r"
+pattern <- "xgboost.r"
 
 # Input data characteristics
 # ===
@@ -27,7 +36,13 @@ positive <- "responder"
 # ===
 removeConstant <- TRUE
 normalize <- TRUE
-filterFeatures <- FALSE
+filterFeatures <- TRUE
+
+# Nested resampling
+# ===
+method <- "exhaustive_search"
+nevals <- 10
+measure <- "classif.ce"
 
 # Cesga arguments
 # ===

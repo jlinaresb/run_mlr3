@@ -33,7 +33,7 @@ preprocess <- function(task,
     print("Filtering features")
     filter <- po("filter",
                  filter = flt("kruskal_test"),
-                 filter.frac = 0.3)
+                 filter.frac = 0.01)
     task <- filter$train(list(task = task))$output
   }
 

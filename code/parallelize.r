@@ -1,15 +1,10 @@
-args <- commandArgs(trailingOnly = TRUE)
+#args <- commandArgs(trailingOnly = TRUE)
 
-cesga <- ifelse(args[1] == "cesga", TRUE, FALSE)
-ExperimentName <- args[2]
-inputDir <- args[3]
-outDir <- args[4]
+#cesga <- ifelse(args[1] == "cesga", TRUE, FALSE)
+#ExperimentName <- args[2]
+#inputDir <- args[3]
+#outDir <- args[4]
 
-outDir <- file.path(outDir, ExperimentName)
-if (dir.exists(outDir) == FALSE) {
-    message(paste("Creating", ExperimentName, "directory!"))
-    dir.create(outDir)
-}
 
 setwd(here::here())
 source("code/configFile.r")

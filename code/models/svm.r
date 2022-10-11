@@ -1,7 +1,7 @@
 setwd(here::here())
 source("requirements.r")
 source("code/configFile.r")
-source("code/pipelines/rf_pipeline.r")
+source("code/pipelines/svm_pipeline.r")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -9,7 +9,7 @@ data <- readRDS(args[1])
 names(data) <- make.names(names(data))
 set.seed(seed)
 
-rf_pipeline(data = data,
+svm_pipeline(data = data,
                 dataname = args[2],
                 target = target,
                 positive = positive,

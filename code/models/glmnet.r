@@ -16,4 +16,7 @@ glmnet_pipeline(data = data,
                 removeConstant = removeConstant,
                 normalize = normalize,
                 filterFeatures = filterFeatures,
+                method,
+                measure,
+                nevals,
                 outDir = outDir)
