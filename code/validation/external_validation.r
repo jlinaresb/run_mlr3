@@ -1,35 +1,20 @@
-# SCRIPT INCOMPLETO!!!
-resDir <- "~/git/run_mlr3/results/cells_antiTNF/rsmp_randomForest_GSE129705.rds"
+setwd(here::here())
+source("code/utils/validation_utils.r")
 
-res <- readRDS(resDir)
-rr <- res$result
-task <- res$task
 
-# Measures
-require(mlr3)
-require(mlr3measures)
-measures = list(msr("classif.acc", id = "Accuracy"),msr("classif.auc", id = "AUCROC"),
-                msr("classif.prauc", id = "PRAUC"),msr("classif.sensitivity", id = "Sensitivity"),
-                msr("classif.specificity", id = "Specificity"))
+res_dir <- "results/cells_antiTNF"
+files <- list.files(res_dir)
 
-# Extract models
-k <- length(rr$predictions())
+models <- lapply(files,
+       function(x) get_models(file.path(res_dir, x)))
+names(models) <- files
 
-# Get performances
-sapply(1:k, function(x) rr$predictions()[[x]]$score(measures))
 
-finalModels = list()
-for (i in seq_along(1:k)) {
-  features = rr$learners[[i]]$fselect_result$features[[1]]
-  newTask = task$clone()
-  newTask$select(features)
-  
-  finalModels[[i]] = rr$learners[[i]]$learner$model$learner$train(newTask)
-}
-
-# finalModels[[3]]$predict(task = task)$score(measures)
-
-# External validation
+# HASTA AQUÍ!
+# TODO:
+# - Hacer función para formatear los datos externos
+# - Hacer el predict por fold
+# - algún plot?
 metacohort = readRDS("~/git/arthritis-drugs/data/antiTNF/metacohort/metacohort.rds")
 metacohort = metacohort[, -c(1:8)]
 

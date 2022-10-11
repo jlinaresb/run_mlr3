@@ -35,13 +35,13 @@ positive <- "responder"
 # Data preprocessing
 # ===
 removeConstant <- TRUE
-normalize <- TRUE
-filterFeatures <- TRUE
+normalize <- FALSE
+filterFeatures <- FALSE
 
 # Nested resampling
 # ===
 method <- "exhaustive_search"
-nevals <- 10
+nevals <- 100
 measure <- "classif.acc"
 
 # Cesga arguments
