@@ -41,13 +41,13 @@ filterFeatures <- FALSE
 # Nested resampling
 # ===
 method <- "exhaustive_search"
-nevals <- 100
+nevals <- 50
 measure <- "classif.acc"
 
 # Cesga arguments
 # ===
 part <- "medium"
-time <- "10:00:00"
+time <- "4-10:00:00"
 mem <- "120GB"
 nodes <- 1
 ntasks <- 24

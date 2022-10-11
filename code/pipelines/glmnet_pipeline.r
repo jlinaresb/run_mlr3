@@ -31,15 +31,15 @@ glmnet_pipeline <- function(data,
   # Learner
   learner <- glmnet(measure, method, nevals)
   # Parallelization
-  future::plan(list("sequential", "multisession"))
+  future::plan(list("multisession", "multisession"))
   # Resampling
   rr <- resample(task,
                  learner,
                  resampling = rsmp("cv", folds = 10),
-                 store_models = TRUE)
+                 store_models = FALSE)
   # Save resampling object
   res <- list(task = task,
               result = rr)
   saveRDS(res,
-          file = paste0(outDir, "/rsmp_glmnet_", dataname, ".rds"))
+          file = paste0(outDir, "rsmp_glmnet_", dataname, ".rds"))
 }

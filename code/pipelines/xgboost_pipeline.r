@@ -37,10 +37,10 @@ xgboost_pipeline <- function(data,
   rr <- resample(task,
                  learner,
                  resampling = rsmp("cv", folds = 10),
-                 store_models = TRUE)
+                 store_models = FALSE)
   # Save resampling object
   res <- list(task = task,
               result = rr)
   saveRDS(res,
-          file = paste0(outDir, "/rsmp_xgboost_", dataname, ".rds"))
+          file = paste0(outDir, "rsmp_xgboost_", dataname, ".rds"))
 }
