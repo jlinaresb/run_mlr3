@@ -9,13 +9,13 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Paths
 # ===
 seed <- 1993
-cesga <- FALSE
+cesga <- TRUE
 
 # Arguments
 # ===
-ExperimentName <- "cells_antiTNF"
-inputDir <- "~/git/run_mlr3/data/antiTNF/"
-outDir <- "~/git/run_mlr3/results/"
+ExperimentName <- "antiTNF"
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/antiTNF/"
+outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/results/"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
     message(paste("Creating", ExperimentName, "directory!"))
@@ -25,7 +25,7 @@ if (dir.exists(outDir) == FALSE) {
 # Algorithms
 # ===
 path_algs <- models_path
-pattern <- "glmnet.r"
+pattern <- ".r"
 
 # Input data characteristics
 # ===
