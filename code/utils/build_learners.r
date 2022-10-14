@@ -169,8 +169,7 @@ lgbm <- function(measure, method, nevals){
   measure <- msr(measure)
   # Hyperparameter space
   ps <- ps(
-    num_iterations = p_int(lower = 1000, upper = 1000),
-    boosting = p_fct(levels = c("gbdt", "rf", "dart", "goss")),
+    boosting = p_fct(levels = c("gbdt", "rf", "goss")),
     learning_rate = p_dbl(lower = 0.01, upper = 0.3),
     num_leaves = p_int(lower = 50, upper = 100),
     tree_learner = p_fct(levels = c("serial", "feature", "data", "voting")),

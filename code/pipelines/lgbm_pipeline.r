@@ -8,7 +8,7 @@ source("code/utils/pipeline_utils.r")
 source("requirements.r")
 
 
-rf_pipeline <- function(data,
+lgbm_pipeline <- function(data,
                         dataname,
                         target,
                         positive,

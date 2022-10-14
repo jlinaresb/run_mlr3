@@ -9,13 +9,13 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Paths
 # ===
 seed <- 1993
-cesga <- TRUE
+cesga <- FALSE
 
 # Arguments
 # ===
 ExperimentName <- "antiTNF"
-inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/antiTNF/"
-outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/results/"
+inputDir <- "~/git/run_mlr3/data/antiTNF"
+outDir <- "~/git/run_mlr3/results"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
     message(paste("Creating", ExperimentName, "directory!"))
@@ -25,7 +25,7 @@ if (dir.exists(outDir) == FALSE) {
 # Algorithms
 # ===
 path_algs <- models_path
-pattern <- ".r"
+pattern <- "lgbm.r"
 
 # Input data characteristics
 # ===
@@ -40,7 +40,7 @@ filterFeatures <- FALSE
 
 # Nested resampling
 # ===
-method <- "exhaustive_search"
+method <- "random_search"
 nevals <- 50
 measure <- "classif.acc"
 
