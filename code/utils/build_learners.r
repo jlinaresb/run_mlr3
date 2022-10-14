@@ -155,3 +155,45 @@ xgboost <- function(measure, method, nevals){
     )
   return(afs)
 }
+
+
+# Ligth GBM
+lgbm <- function(measure, method, nevals){
+  tuner <- tnr("grid_search", resolution = 50)
+  terminator <- trm("evals", n_evals = 50)
+  # Inner
+  inner <- rsmp("holdout", ratio = 0.7)
+  # Make learner
+  learner <- lrn("classif.lightgbm", predict_type = "prob")
+  # Establishing measure
+  measure <- msr(measure)
+  # Hyperparameter space
+  ps <- ps(
+    num_iterations = p_int(lower = 1000, upper = 1000),
+    boosting = p_fct(levels = c("gbdt", "rf", "dart", "goss")),
+    learning_rate = p_dbl(lower = 0.01, upper = 0.3),
+    num_leaves = p_int(lower = 50, upper = 100),
+    tree_learner = p_fct(levels = c("serial", "feature", "data", "voting")),
+    max_depth = p_int(lower = 5, upper = 10),
+    min_data_in_leaf = p_int(lower = 20, upper = 70)
+  )
+  # Autotuner
+  at <- AutoTuner$new(learner = learner,
+                     resampling = inner,
+                     measure = measure,
+                     terminator = terminator,
+                     tuner = tuner,
+                     search_space = ps,
+                     store_tuning_instance = FALSE,
+                     store_benchmark_result = FALSE,
+                     store_models = FALSE)
+  # Autotuner features
+  afs <- auto_fselector(
+    method = method,
+    learner = at,
+    resampling = inner,
+    measure = measure,
+    term_evals = nevals
+    )
+  return(afs)
+}
