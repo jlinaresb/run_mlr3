@@ -14,8 +14,8 @@ cesga <- FALSE
 # Arguments
 # ===
 ExperimentName <- "antiTNF"
-inputDir <- "~/git/run_mlr3/data/antiTNF"
-outDir <- "~/git/run_mlr3/results"
+inputDir <- "~/git/run_mlr3/data/antiTNF/"
+outDir <- "~/git/run_mlr3/results/"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
     message(paste("Creating", ExperimentName, "directory!"))

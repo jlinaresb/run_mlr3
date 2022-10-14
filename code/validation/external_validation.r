@@ -2,7 +2,7 @@ setwd(here::here())
 source("code/utils/validation_utils.r")
 
 
-res_dir <- "results/cells_antiTNF"
+res_dir <- "results/antiTNF"
 files <- list.files(res_dir)
 
 models <- lapply(files,

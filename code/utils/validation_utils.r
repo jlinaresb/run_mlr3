@@ -26,10 +26,11 @@ get_models <- function(model_path) {
     # Extract the model of each fold
     final_models <- list()
     for (i in seq_along(1:k)) {
-    features <- rr$learners[[i]]$fselect_result$features[[1]]
-    new_task <- task$clone()
-    new_task$select(features)
-    final_models[[i]] <- rr$learners[[i]]$learner$model$learner$train(new_task)
+        features <- rr$learners[[i]]$fselect_result$features[[1]]
+        new_task <- task$clone()
+        new_task$select(features)
+        final_models[[i]] <-
+                rr$learners[[i]]$learner$model$learner$train(new_task)
     }
     return(final_models)
 }
