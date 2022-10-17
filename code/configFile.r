@@ -46,8 +46,8 @@ measure <- "classif.acc"
 
 # Cesga arguments
 # ===
-part <- "medium"
-time <- "2-10:00:00"
-mem <- "120GB"
+part <- "short"
+time <- "06:00:00"
+mem <- "64GB"
 nodes <- 1
 ntasks <- 24
