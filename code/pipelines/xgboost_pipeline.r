@@ -32,7 +32,8 @@ xgboost_pipeline <- function(data,
   # Learner
   learner <- xgboost(measure, method, nevals)
   # Parallelization
-  future::plan(list("multisession", "multisession"))
+  future::plan(list(future::tweak("multisession", workers = ntasks),
+                    future::tweak("multisession", workers = 1)))
   # Resampling
   rr <- resample(task,
                  learner,
