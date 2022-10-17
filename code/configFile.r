@@ -10,7 +10,7 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Paths
 # ===
 seed <- 1993
-cesga <- TRUE
+cesga <- FALSE
 
 # Arguments
 # ===
@@ -41,7 +41,7 @@ filterFeatures <- FALSE
 
 # Nested resampling
 # ===
-method <- "random_search"   #for autofselector
+method <- "genetic_search"   #for autofselector
 nevals <- 50                #for autofselector
 measure <- "classif.acc"
 outer <- rsmp("repeated_cv", repeats = 10, folds = 3)

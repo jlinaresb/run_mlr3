@@ -22,8 +22,8 @@ randomForest <- function(measure, method, nevals) {
                      terminator = terminator,
                      tuner = tuner,
                      search_space = ps,
-                     store_tuning_instance = FALSE,
-                     store_benchmark_result = FALSE,
+                     store_tuning_instance = TRUE,
+                     store_benchmark_result = TRUE,
                      store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
@@ -62,8 +62,8 @@ glmnet <- function(measure, method, nevals) {
                      terminator = terminator,
                      tuner = tuner,
                      search_space = ps,
-                     store_tuning_instance = FALSE,
-                     store_benchmark_result = FALSE,
+                     store_tuning_instance = TRUE,
+                     store_benchmark_result = TRUE,
                      store_models = TRUE)
   # Autotuner features
    afs <- auto_fselector(
@@ -102,8 +102,8 @@ svm <- function(measure, method, nevals) {
                      terminator = terminator,
                      tuner = tuner,
                      search_space = ps,
-                     store_tuning_instance = FALSE,
-                     store_benchmark_result = FALSE,
+                     store_tuning_instance = TRUE,
+                     store_benchmark_result = TRUE,
                      store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
@@ -142,8 +142,8 @@ xgboost <- function(measure, method, nevals){
                      terminator = terminator,
                      tuner = tuner,
                      search_space = ps,
-                     store_tuning_instance = FALSE,
-                     store_benchmark_result = FALSE,
+                     store_tuning_instance = TRUE,
+                     store_benchmark_result = TRUE,
                      store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
@@ -181,8 +181,8 @@ lgbm <- function(measure, method, nevals){
                      terminator = terminator,
                      tuner = tuner,
                      search_space = ps,
-                     store_tuning_instance = FALSE,
-                     store_benchmark_result = FALSE,
+                     store_tuning_instance = TRUE,
+                     store_benchmark_result = TRUE,
                      store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
