@@ -24,7 +24,7 @@ randomForest <- function(measure, method, nevals) {
                      search_space = ps,
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
-                     store_models = FALSE)
+                     store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
     method = method,
@@ -64,7 +64,7 @@ glmnet <- function(measure, method, nevals) {
                      search_space = ps,
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
-                     store_models = FALSE)
+                     store_models = TRUE)
   # Autotuner features
    afs <- auto_fselector(
     method = method,
@@ -104,7 +104,7 @@ svm <- function(measure, method, nevals) {
                      search_space = ps,
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
-                     store_models = FALSE)
+                     store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
     method = method,
@@ -144,7 +144,7 @@ xgboost <- function(measure, method, nevals){
                      search_space = ps,
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
-                     store_models = FALSE)
+                     store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
     method = method,
@@ -183,7 +183,7 @@ lgbm <- function(measure, method, nevals){
                      search_space = ps,
                      store_tuning_instance = FALSE,
                      store_benchmark_result = FALSE,
-                     store_models = FALSE)
+                     store_models = TRUE)
   # Autotuner features
   afs <- auto_fselector(
     method = method,
