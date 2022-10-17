@@ -1,13 +1,29 @@
 setwd(here::here())
 source("code/utils/validation_utils.r")
 
-
 res_dir <- "results/antiTNF"
 files <- list.files(res_dir)
 
 models <- lapply(files,
        function(x) get_models(file.path(res_dir, x)))
 names(models) <- files
+
+
+# See performances (aggregate / by fold)
+model <- readRDS(file.path(res_dir, files[1]))
+rr <- model$result
+task <- model$task
+print(rr$score(measures = measures))    # aggregate
+
+preds <- rr$predictions()
+lapply(preds, function(x) list(x$score(measures = measures), x$confusion))
+
+data <- as.data.table(rr)
+outer_learners <- map(data$learner, "learner")
+
+model1 <- outer_learners[[1]]
+
+# =================
 
 
 # HASTA AQUÍ!
