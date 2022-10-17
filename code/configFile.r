@@ -1,4 +1,5 @@
 setwd(here::here())
+source("requirements.r")
 
 base_path <- here::here()
 models_path <- file.path(base_path, "code/models/")
@@ -40,9 +41,10 @@ filterFeatures <- FALSE
 
 # Nested resampling
 # ===
-method <- "random_search"
-nevals <- 50
+method <- "random_search"   #for autofselector
+nevals <- 50                #for autofselector
 measure <- "classif.acc"
+outer <- rsmp("repeated_cv", repeats = 10, folds = 3)
 
 # Cesga arguments
 # ===

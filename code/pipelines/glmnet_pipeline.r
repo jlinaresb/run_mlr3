@@ -5,7 +5,7 @@ source("code/configFile.r")
 source("code/utils/build_learners.r")
 source("code/utils/tuners.r")
 source("code/utils/pipeline_utils.r")
-source("requirements.r")
+
 
 glmnet_pipeline <- function(data,
                             dataname,
@@ -35,7 +35,7 @@ glmnet_pipeline <- function(data,
   # Resampling
   rr <- resample(task,
                  learner,
-                 resampling = rsmp("cv", folds = 10),
+                 resampling = outer,
                  store_models = FALSE)
   # Save resampling object
   res <- list(task = task,

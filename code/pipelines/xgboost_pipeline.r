@@ -37,7 +37,7 @@ xgboost_pipeline <- function(data,
   # Resampling
   rr <- resample(task,
                  learner,
-                 resampling = rsmp("cv", folds = 10),
+                 resampling = outer,
                  store_models = FALSE)
   # Save resampling object
   res <- list(task = task,
