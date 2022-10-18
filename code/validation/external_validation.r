@@ -12,18 +12,21 @@ print(files[i])
 # See aggregate performances
 rr <- model$result
 task <- model$task
-print(rr$score(measures = measures))    # aggregate
+print(rr$score(measures = measures))
 
 # see performances by fold
 preds <- rr$predictions()
 lapply(preds, function(x) list(x$score(measures = measures)))
 
-# get models
+# get all models
 data <- as.data.table(rr)
 outer_learners <- map(data$learner, "learner")
 
 # get features
 extract_inner_fselect_results(rr)
+
+# train with all task and predict in external validation
+outer_learners$
 # =================
 
 

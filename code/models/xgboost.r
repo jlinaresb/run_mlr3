@@ -25,5 +25,6 @@ xgboost_pipeline(
     term_evals = term_evals,
     workers = ntasks,
     outDir = outDir,
+    parallel = parallel,
     seed = seed
 )

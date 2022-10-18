@@ -20,6 +20,7 @@ glmnet_pipeline <- function(
                         term_evals,
                         workers,
                         outDir,
+                        parallel,
                         seed) {
   set.seed(seed)
   # Make task
@@ -39,8 +40,10 @@ glmnet_pipeline <- function(
                     method_afs,
                     term_evals)
   # Parallelization
-  future::plan(list(future::tweak("multisession", workers = workers),
-                    future::tweak("multisession", workers = 1)))
+  if (parallel == TRUE) {
+        future::plan(list(future::tweak("multisession", workers = workers),
+                         future::tweak("multisession", workers = 1)))
+  }
   # Resampling
   rr <- resample(task,
                  learner,

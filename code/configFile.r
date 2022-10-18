@@ -10,7 +10,7 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Arguments
 # ===
 seed <- 1993
-cesga <- TRUE
+cesga <- FALSE
 
 ExperimentName <- "antiTNF"
 inputDir <- file.path(base_path, "data/antiTNF/")
@@ -32,7 +32,7 @@ positive <- "responder"
 # Data preprocessing
 removeConstant <- TRUE
 normalize <- FALSE
-filterFeatures <- TRUE
+filterFeatures <- FALSE
 
 # Tuning
 measure <- msr("classif.acc")
@@ -41,6 +41,7 @@ method_afs <- "genetic_search"
 inner <- rsmp("holdout", ratio = 0.8)
 outer <- rsmp("repeated_cv", repeats = 10, folds = 3)
 term_evals <- NULL
+parallel <- TRUE
 
 
 # Cesga arguments
@@ -49,4 +50,4 @@ part <- "short"
 time <- "06:00:00"
 mem <- "128GB"
 nodes <- 1
-ntasks <- 24
+ntasks <- 20

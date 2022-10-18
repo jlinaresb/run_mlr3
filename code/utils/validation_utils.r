@@ -9,7 +9,7 @@ measures <- list(msr("classif.acc", id = "Accuracy"),
                  msr("classif.specificity", id = "Specificity"))
 
 
-# Extract models
+# Extract models (cambiar!!)
 get_models <- function(model_path) {
 
     # Load model and task
@@ -34,3 +34,5 @@ get_models <- function(model_path) {
     }
     return(final_models)
 }
+
+
