@@ -4,22 +4,26 @@ source("code/utils/validation_utils.r")
 res_dir <- "results/antiTNF"
 files <- list.files(res_dir)
 
-# See performances (aggregate / by fold)
 i <- 4
 model <- readRDS(file.path(res_dir, files[i]))
 print(files[i])
+
+# =================
+# See aggregate performances
 rr <- model$result
 task <- model$task
 print(rr$score(measures = measures))    # aggregate
 
+# see performances by fold
 preds <- rr$predictions()
-lapply(preds, function(x) list(x$score(measures = measures), x$confusion))
+lapply(preds, function(x) list(x$score(measures = measures)))
 
+# get models
 data <- as.data.table(rr)
 outer_learners <- map(data$learner, "learner")
 
-model1 <- outer_learners[[1]]
-class(model1)
+# get features
+extract_inner_fselect_results(rr)
 # =================
 
 

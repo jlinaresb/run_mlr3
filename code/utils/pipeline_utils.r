@@ -18,23 +18,23 @@ preprocess <- function(task,
 
   # Remove constant features
   if (removeConstant == TRUE) {
-    print("Removing constant features")
     rcf <- po("removeconstants")
     task <- rcf$train(list(task = task))$output
+    print("Constant features have been removed!")
   }
   # Normalizing features
   if (normalize == TRUE) {
-    print("Normalizing features")
     nf <- po("scale")
     task <- nf$train(input = list(task))$output
+    print("Features have benn normalized!")
   }
   # Filter features
   if (filterFeatures == TRUE) {
-    print("Filtering features")
     filter <- po("filter",
                  filter = flt("kruskal_test"),
                  filter.frac = 0.01)
     task <- filter$train(list(task = task))$output
+    print("Features have been filtered!")
   }
 
   return(task)
