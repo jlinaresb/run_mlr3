@@ -9,14 +9,21 @@ data <- readRDS(args[1])
 names(data) <- make.names(names(data))
 set.seed(seed)
 
-svm_pipeline(data = data,
-                dataname = args[2],
-                target = target,
-                positive = positive,
-                removeConstant = removeConstant,
-                normalize = normalize,
-                filterFeatures = filterFeatures,
-                method,
-                measure,
-                nevals,
-                outDir = outDir)
+svm_pipeline(
+    data = data,
+    dataname = args[2],
+    target = target,
+    positive = positive,
+    removeConstant = removeConstant,
+    normalize = normalize,
+    filterFeatures = filterFeatures,
+    inner = inner,
+    outer = outer,
+    measure = measure,
+    method_at = method_at,
+    method_afs = method_afs,
+    term_evals = term_evals,
+    workers = ntasks,
+    outDir = outDir,
+    seed = seed
+)

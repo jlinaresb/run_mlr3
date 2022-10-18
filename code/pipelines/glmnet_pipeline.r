@@ -1,23 +1,27 @@
-# Glmnet function
+# RandomForest function
 # =======
 setwd(here::here())
-source("code/configFile.r")
 source("code/utils/build_learners.r")
-source("code/utils/tuners.r")
 source("code/utils/pipeline_utils.r")
 
-
-glmnet_pipeline <- function(data,
-                            dataname,
-                            target,
-                            positive,
-                            removeConstant,
-                            normalize,
-                            filterFeatures,
-                            method,
-                            measure,
-                            nevals,
-                            outDir) {
+glmnet_pipeline <- function(
+                        data,
+                        dataname,
+                        target,
+                        positive,
+                        removeConstant,
+                        normalize,
+                        filterFeatures,
+                        inner,
+                        outer,
+                        measure,
+                        method_at,
+                        method_afs,
+                        term_evals,
+                        workers,
+                        outDir,
+                        seed) {
+  set.seed(seed)
   # Make task
   task <- making_task(data,
                       dataname,
@@ -29,14 +33,19 @@ glmnet_pipeline <- function(data,
                      normalize,
                      filterFeatures)
   # Learner
-  learner <- glmnet(measure, method, nevals)
+  learner <- glmnet(inner,
+                    measure,
+                    method_at,
+                    method_afs,
+                    term_evals)
   # Parallelization
-  future::plan(list("multisession", "multisession"))
+  future::plan(list(future::tweak("multisession", workers = workers),
+                    future::tweak("multisession", workers = 1)))
   # Resampling
   rr <- resample(task,
                  learner,
                  resampling = outer,
-                 store_models = FALSE)
+                 store_models = TRUE)
   # Save resampling object
   res <- list(task = task,
               result = rr)

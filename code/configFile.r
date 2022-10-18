@@ -7,13 +7,11 @@ builders_path <- file.path(base_path, "code/builders/")
 exec_path <- file.path(base_path, "code/Exec/")
 
 
-# Paths
-# ===
-seed <- 1993
-cesga <- TRUE
-
 # Arguments
 # ===
+seed <- 1993
+cesga <- FALSE
+
 ExperimentName <- "antiTNF"
 inputDir <- file.path(base_path, "data/antiTNF/")
 outDir <- file.path(base_path, "results/")
@@ -24,27 +22,26 @@ if (dir.exists(outDir) == FALSE) {
 }
 
 # Algorithms
-# ===
 path_algs <- models_path
-pattern <- ".r"
+pattern <- "glmnet.r"
 
 # Input data characteristics
-# ===
 target <- "response"
 positive <- "responder"
 
 # Data preprocessing
-# ===
 removeConstant <- TRUE
 normalize <- FALSE
 filterFeatures <- FALSE
 
-# Nested resampling
-# ===
-method <- "genetic_search"   #for autofselector
-nevals <- 50                #for autofselector
-measure <- "classif.acc"
+# Tuning
+measure <- msr("classif.acc")
+method_at <- "grid_search"
+method_afs <- "genetic_search"
+inner <- rsmp("holdout", ratio = 0.7)
 outer <- rsmp("repeated_cv", repeats = 10, folds = 3)
+term_evals <- 5
+
 
 # Cesga arguments
 # ===
