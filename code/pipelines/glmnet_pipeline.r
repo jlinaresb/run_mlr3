@@ -41,8 +41,9 @@ glmnet_pipeline <- function(
                     term_evals)
   # Parallelization
   if (parallel == TRUE) {
-        future::plan(list(future::tweak("multisession", workers = workers),
-                         future::tweak("multisession", workers = 1)))
+        future::plan(list(
+            future::tweak("multisession", workers = workers),
+            "sequential"))
   }
   # Resampling
   rr <- resample(task,

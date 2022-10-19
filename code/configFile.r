@@ -12,8 +12,8 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- FALSE
 
-ExperimentName <- "antiTNF"
-inputDir <- file.path(base_path, "data/antiTNF/")
+ExperimentName <- "antiTNF_all"
+inputDir <- file.path(base_path, "data/antiTNF_all/")
 outDir <- file.path(base_path, "results/")
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
@@ -31,23 +31,23 @@ positive <- "responder"
 
 # Data preprocessing
 removeConstant <- TRUE
-normalize <- FALSE
+normalize <- TRUE
 filterFeatures <- FALSE
 
 # Tuning
 measure <- msr("classif.acc")
-method_at <- tnr("grid_search", resolution = 20)
-method_afs <- "rfe"
+method_at <- tnr("grid_search", resolution = 10)
+method_afs <- "sequential"
 inner <- rsmp("holdout", ratio = 0.7)
-outer <- rsmp("repeated_cv", repeats = 10, folds = 3)
+outer <- rsmp("repeated_cv", repeats = 10, folds = 10)
 term_evals <- NULL
 parallel <- TRUE
 
 
 # Cesga arguments
 # ===
-part <- "short"
+part <- "medium"
 time <- "06:00:00"
-mem <- "128GB"
+mem <- "254GB"
 nodes <- 1
-ntasks <- 20
+ntasks <- 150
