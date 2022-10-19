@@ -15,7 +15,7 @@ randomForest <- function(inner,
   ps <- ps(
     mtry = p_int(lower = 3, upper = 15),
     nodesize = p_int(lower = 1, upper = 5),
-    ntree = p_int(lower = 900, upper = 1000)
+    ntree = p_int(lower = 990, upper = 1000)
   )
   # Hyperparameters and features tuner
   afs <- make_tuner(inner,
