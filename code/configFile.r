@@ -47,7 +47,7 @@ parallel <- TRUE
 # Cesga arguments
 # ===
 part <- "medium"
-time <- "06:00:00"
+time <- "3-00:00:00"
 mem <- "120GB"
-nodes <- 10
-ntasks <- 240
+nodes <- 1
+ntasks <- 24
