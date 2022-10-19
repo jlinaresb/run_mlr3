@@ -48,6 +48,6 @@ parallel <- TRUE
 # ===
 part <- "medium"
 time <- "06:00:00"
-mem <- "254GB"
+mem <- "120GB"
 nodes <- 1
 ntasks <- 150
