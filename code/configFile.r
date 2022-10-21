@@ -23,7 +23,7 @@ if (dir.exists(outDir) == FALSE) {
 
 # Algorithms
 path_algs <- models_path
-pattern <- "lgbm.r"
+pattern <- ".r"
 
 # Input data characteristics
 target <- "response"
