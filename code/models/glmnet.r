@@ -23,8 +23,11 @@ glmnet_pipeline(
     method_at = method_at,
     method_afs = method_afs,
     term_evals = term_evals,
+    fselector = fselector,
     workers = ntasks,
     outDir = outDir,
     parallel = parallel,
+    folds = folds,
+    batch_size = batch_size,
     seed = seed
 )

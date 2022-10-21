@@ -4,6 +4,7 @@ make_tuner <- function(inner,
                        ps,
                        term_evals,
                        method_at,
+                       fselector,
                        method_afs
                        ) {
 
@@ -17,12 +18,15 @@ make_tuner <- function(inner,
             term_evals = term_evals
     )
     # Autotuner features
-    afs <- auto_fselector(
-                method = method_afs,
-                learner = at,
-                resampling = inner,
-                measure = measure,
-                term_evals = term_evals
+    if (fselector == TRUE) {
+            at <- auto_fselector(
+                        method = method_afs,
+                        learner = at,
+                        resampling = inner,
+                        measure = measure,
+                        term_evals = term_evals
     )
-    return(afs)
+    }
+
+    return(at)
 }

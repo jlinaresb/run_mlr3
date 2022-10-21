@@ -18,9 +18,12 @@ glmnet_pipeline <- function(
                         method_at,
                         method_afs,
                         term_evals,
+                        fselector,
                         workers,
                         outDir,
                         parallel,
+                        folds,
+                        batch_size,
                         seed) {
   set.seed(seed)
   # Make task
@@ -38,12 +41,13 @@ glmnet_pipeline <- function(
                     measure,
                     method_at,
                     method_afs,
-                    term_evals)
+                    term_evals,
+                    fselector)
   # Parallelization
   if (parallel == TRUE) {
         future::plan(list(
-            future::tweak("multisession", workers = workers),
-            "sequential"))
+            future::tweak("multisession", workers = folds),  # outer
+            future::tweak("multisession", workers = batch_size))) # inner
   }
   # Resampling
   rr <- resample(task,

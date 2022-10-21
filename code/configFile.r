@@ -10,7 +10,7 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Arguments
 # ===
 seed <- 1993
-cesga <- TRUE
+cesga <- FALSE
 
 ExperimentName <- "antiTNF_all"
 inputDir <- file.path(base_path, "data/antiTNF_all/")
@@ -23,7 +23,7 @@ if (dir.exists(outDir) == FALSE) {
 
 # Algorithms
 path_algs <- models_path
-pattern <- ".r"
+pattern <- "glmnet.r"
 
 # Input data characteristics
 target <- "response"
@@ -34,14 +34,20 @@ removeConstant <- TRUE
 normalize <- TRUE
 filterFeatures <- FALSE
 
+# Parallelization
+parallel <- TRUE
+batch_size <- 10
+folds <- 10
+
 # Tuning
+fselector <- FALSE
 measure <- msr("classif.acc")
-method_at <- tnr("grid_search", resolution = 10)
+method_at <- tnr("grid_search", resolution = 10, batch_size = batch_size)
 method_afs <- "sequential"
 inner <- rsmp("holdout", ratio = 0.7)
-outer <- rsmp("repeated_cv", repeats = 10, folds = 10)
+outer <- rsmp("cv", folds = folds)
 term_evals <- NULL
-parallel <- TRUE
+
 
 
 # Cesga arguments
@@ -50,4 +56,4 @@ part <- "medium"
 time <- "3-00:00:00"
 mem <- "120GB"
 nodes <- 1
-ntasks <- 24
+ntasks <- 20

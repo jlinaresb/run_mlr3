@@ -7,7 +7,8 @@ randomForest <- function(inner,
                          measure,
                          method_at,
                          method_afs,
-                         term_evals) {
+                         term_evals,
+                         fselector) {
   # Make learner
   learner <- lrn("classif.randomForest",
                   predict_type = "prob")
@@ -24,6 +25,7 @@ randomForest <- function(inner,
                     ps,
                     term_evals,
                     method_at,
+                    fselector,
                     method_afs)
   return(afs)
 }
@@ -35,7 +37,8 @@ glmnet <- function(inner,
                    measure,
                    method_at,
                    method_afs,
-                   term_evals) {
+                   term_evals,
+                   fselector) {
   # Make learner
   learner <- lrn("classif.glmnet",
                 predict_type = "prob")
@@ -53,6 +56,7 @@ glmnet <- function(inner,
                     ps,
                     term_evals,
                     method_at,
+                    fselector,
                     method_afs)
   return(afs)
 }
@@ -64,7 +68,8 @@ svm <- function(inner,
                 measure,
                 method_at,
                 method_afs,
-                term_evals) {
+                term_evals,
+                fselector) {
   # Make learner
   learner <- lrn("classif.svm",
                  predict_type = "prob")
@@ -82,6 +87,7 @@ svm <- function(inner,
                     ps,
                     term_evals,
                     method_at,
+                    fselector,
                     method_afs)
   return(afs)
 }
@@ -92,7 +98,8 @@ xgboost <- function(inner,
                     measure,
                     method_at,
                     method_afs,
-                    term_evals) {
+                    term_evals,
+                    fselector) {
   # Make learner
   learner <- lrn("classif.xgboost",
                  predict_type = "prob")
@@ -111,6 +118,7 @@ xgboost <- function(inner,
                     ps,
                     term_evals,
                     method_at,
+                    fselector,
                     method_afs)
   return(afs)
 }
@@ -121,7 +129,8 @@ lgbm <- function(inner,
                  measure,
                  method_at,
                  method_afs,
-                 term_evals) {
+                 term_evals,
+                 fselector) {
   # Make learner
   learner <- lrn("classif.lightgbm",
                  predict_type = "prob")
@@ -139,6 +148,7 @@ lgbm <- function(inner,
                     ps,
                     term_evals,
                     method_at,
+                    fselector,
                     method_afs)
   return(afs)
 }
