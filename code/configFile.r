@@ -10,7 +10,7 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Arguments
 # ===
 seed <- 1993
-cesga <- FALSE
+cesga <- TRUE
 
 ExperimentName <- "antiTNF_all"
 inputDir <- file.path(base_path, "data/antiTNF_all/")
@@ -23,7 +23,7 @@ if (dir.exists(outDir) == FALSE) {
 
 # Algorithms
 path_algs <- models_path
-pattern <- "glmnet.r"
+pattern <- "lgbm.r"
 
 # Input data characteristics
 target <- "response"
@@ -31,7 +31,7 @@ positive <- "responder"
 
 # Data preprocessing
 removeConstant <- TRUE
-normalize <- TRUE
+normalize <- FALSE
 filterFeatures <- FALSE
 
 # Parallelization
@@ -52,8 +52,8 @@ term_evals <- NULL
 
 # Cesga arguments
 # ===
-part <- "medium"
-time <- "3-00:00:00"
+part <- "short"
+time <- "02:00:00"
 mem <- "120GB"
 nodes <- 1
 ntasks <- 20
