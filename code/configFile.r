@@ -12,8 +12,8 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "antiTNF_all"
-inputDir <- file.path(base_path, "data/antiTNF_all/")
+ExperimentName <- "antiTNF_gsva"
+inputDir <- file.path(base_path, "data/antiTNF_gsva/")
 outDir <- file.path(base_path, "results/")
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
@@ -42,8 +42,8 @@ folds <- 10
 # Tuning
 fselector <- FALSE
 measure <- msr("classif.acc")
-method_at <- tnr("grid_search", resolution = 10, batch_size = batch_size)
-method_afs <- "sequential"
+method_at <- tnr("grid_search", resolution = 30, batch_size = batch_size)
+method_afs <- NULL
 inner <- rsmp("holdout", ratio = 0.7)
 outer <- rsmp("cv", folds = folds)
 term_evals <- NULL

@@ -1,10 +1,12 @@
+require(dplyr)
+
 setwd(here::here())
 source("code/utils/validation_utils.r")
 
-res_dir <- "results/antiTNF"
+res_dir <- "results/antiTNF_all"
 files <- list.files(res_dir)
 
-i <- 4
+i <- 3
 model <- readRDS(file.path(res_dir, files[i]))
 print(files[i])
 
@@ -16,7 +18,7 @@ print(rr$score(measures = measures))
 
 # see performances by fold
 preds <- rr$predictions()
-lapply(preds, function(x) list(x$score(measures = measures)))
+lapply(preds, function(x) list(x$confusion))
 
 # get all models
 data <- as.data.table(rr)
@@ -26,7 +28,7 @@ outer_learners <- map(data$learner, "learner")
 extract_inner_fselect_results(rr)
 
 # train with all task and predict in external validation
-outer_learners$
+outer_learners
 # =================
 
 

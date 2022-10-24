@@ -106,10 +106,11 @@ xgboost <- function(inner,
   # Hyperparameter space
   ps <- ps(
     booster = p_fct(levels = c("gbtree", "gblinear", "dart")),
-    alpha = p_dbl(lower = 0, upper = 1),
-    eta = p_dbl(lower = 0, upper = 1),
-    lambda = p_dbl(lower = 0.2, upper = 0.8),
-    gamma = p_dbl(lower = 0.2, upper = 0.8)
+    alpha = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
+    eta = p_dbl(lower = 1e-5, upper = 1, logscale = TRUE),
+    lambda = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
+    gamma = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
+    nrounds = p_int(lower = 100, upper = 200)
   )
   # Hyperparameters and features tuner
   afs <- make_tuner(inner,
