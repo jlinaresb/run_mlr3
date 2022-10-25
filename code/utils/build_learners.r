@@ -138,9 +138,9 @@ lgbm <- function(inner,
   # Hyperparameter space
   ps <- ps(
     learning_rate = p_dbl(lower = 0.01, upper = 0.3),
-    num_leaves = p_int(lower = 50, upper = 100),
+    num_leaves = p_int(lower = 10, upper = 100),
     max_depth = p_int(lower = 5, upper = 10),
-    min_data_in_leaf = p_int(lower = 20, upper = 70)
+    min_data_in_leaf = p_int(lower = 5, upper = 30)
   )
   # Hyperparameters and features tuner
   afs <- make_tuner(inner,

@@ -42,11 +42,11 @@ folds <- 10
 # Tuning
 fselector <- FALSE
 measure <- msr("classif.acc")
-method_at <- tnr("grid_search", resolution = 30, batch_size = batch_size)
+method_at <- tnr("grid_search", resolution = 20, batch_size = batch_size)
 method_afs <- NULL
 inner <- rsmp("holdout", ratio = 0.7)
 outer <- rsmp("cv", folds = folds)
-term_evals <- NULL
+term_evals <- 1000
 
 
 
