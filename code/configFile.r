@@ -46,14 +46,14 @@ method_at <- tnr("grid_search", resolution = 20, batch_size = batch_size)
 method_afs <- NULL
 inner <- rsmp("holdout", ratio = 0.7)
 outer <- rsmp("cv", folds = folds)
-term_evals <- 1000
+term_evals <- NULL
 
 
 
 # Cesga arguments
 # ===
-part <- "short"
-time <- "06:00:00"
+part <- "medium"
+time <- "3-00:00:00"
 mem <- "120GB"
 nodes <- 1
 ntasks <- 20

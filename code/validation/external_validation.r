@@ -1,35 +1,34 @@
 require(dplyr)
-
+require(pbapply)
 setwd(here::here())
-source("code/utils/validation_utils.r")
+source("~/git/run_mlr3/code/utils/validation_utils.r")
 
-res_dir <- "results/antiTNF_all"
+res_dir <- "~/git/arthritis-drugs/02_training/results/antiTNF_gsva/"
 files <- list.files(res_dir)
 
-i <- 3
+res <- pblapply(files, function(i) {
+  model <- readRDS(file.path(res_dir, i))
+  rr <- model$result
+  return(rr$score(measures = measures)[, c(2, 4, 7, 9:13)])
+})
+res <- data.table::rbindlist(res)
+res2 <- res %>% 
+  group_by(task_id, learner_id) %>% 
+  summarise(across(everything(), list(mean)))
+
+
 model <- readRDS(file.path(res_dir, files[i]))
 print(files[i])
 
 # =================
 # See aggregate performances
 rr <- model$result
-task <- model$task
-print(rr$score(measures = measures))
+rr$score(measures = measures)[, c(2, 4, 7, 9:13)]
 
 # see performances by fold
 preds <- rr$predictions()
 lapply(preds, function(x) list(x$confusion))
 
-# get all models
-data <- as.data.table(rr)
-outer_learners <- map(data$learner, "learner")
-
-# get features
-extract_inner_fselect_results(rr)
-
-# train with all task and predict in external validation
-outer_learners
-# =================
 
 
 # HASTA AQUÍ!
