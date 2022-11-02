@@ -52,8 +52,8 @@ term_evals <- NULL
 
 # Cesga arguments
 # ===
-part <- "medium"
-time <- "3-00:00:00"
+part <- "short"
+time <- "06:00:00"
 mem <- "120GB"
 nodes <- 1
 ntasks <- 20
