@@ -27,6 +27,7 @@ xgboost_pipeline(
     workers = ntasks,
     outDir = outDir,
     parallel = parallel,
+    resampling = resampling,
     folds = folds,
     batch_size = batch_size,
     seed = seed

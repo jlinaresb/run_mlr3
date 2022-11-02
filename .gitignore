@@ -1,4 +1,4 @@
 data/
-code/Exec/*.sh
+code/Exec/*
 results/
 tmp/

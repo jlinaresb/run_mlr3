@@ -21,6 +21,7 @@ rf_pipeline <- function(data,
                         workers,
                         outDir,
                         parallel,
+                        resampling,
                         folds,
                         batch_size,
                         seed) {
@@ -42,20 +43,34 @@ rf_pipeline <- function(data,
                           method_afs,
                           term_evals,
                           fselector)
-  # Parallelization
-  if (parallel == TRUE) {
-        future::plan(list(
-            future::tweak("multisession", workers = folds),  # outer
-            future::tweak("multisession", workers = batch_size))) # inner
+
+  if (resampling == TRUE) {
+    id <- "rsmp"
+    # Parallelization
+    if (parallel == TRUE) {
+            future::plan(list(
+                future::tweak("multisession", workers = folds),  # outer
+                future::tweak("multisession", workers = batch_size))) # inner
+    }
+    # Resampling
+    rr <- resample(task,
+                   learner,
+                   resampling = outer,
+                   store_models = TRUE)
+  } else {
+    id <- "autotuner"
+    # Parallelization
+    if (parallel == TRUE) {
+            future::plan(list(
+                future::tweak("multisession", workers = batch_size))) # inner
+    }
+    # Autotuner
+    rr <- learner$train(task)
   }
-  # Resampling
-  rr <- resample(task,
-                 learner,
-                 resampling = outer,
-                 store_models = TRUE)
+
   # Save resampling object
   res <- list(task = task,
               result = rr)
   saveRDS(res,
-          file = paste0(outDir, "/rsmp_randomForest_", dataname, ".rds"))
+          file = paste0(outDir, "/", id, "_rf_", dataname, ".rds"))
 }
