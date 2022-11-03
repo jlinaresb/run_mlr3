@@ -8,7 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 data <- readRDS(args[1])
 names(data) <- make.names(names(data))
 set.seed(seed)
-
+progressr::handlers("progress")
 glmnet_pipeline(
     data = data,
     dataname = args[2],

@@ -10,13 +10,17 @@ randomForest <- function(inner,
                          term_evals,
                          fselector) {
   # Make learner
-  learner <- lrn("classif.randomForest",
+  learner <- lrn("classif.ranger",
+                  num.trees = 1000,
+                  num.threads = 10,
+                  importance = "impurity",
                   predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
     mtry = p_int(lower = 3, upper = 15),
-    nodesize = p_int(lower = 1, upper = 5),
-    ntree = p_int(lower = 990, upper = 1000)
+    min.node.size = p_int(lower = 1, upper = 5),
+    max.depth = p_int(lower = 2, upper = 15),
+    alpha = p_dbl(lower = 0, upper = 1)
   )
   # Hyperparameters and features tuner
   afs <- make_tuner(inner,
@@ -102,15 +106,15 @@ xgboost <- function(inner,
                     fselector) {
   # Make learner
   learner <- lrn("classif.xgboost",
+                 nrounds = 100,
+                 nthread = 10,
                  predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
-    booster = p_fct(levels = c("gbtree", "gblinear", "dart")),
-    alpha = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
-    eta = p_dbl(lower = 1e-5, upper = 1, logscale = TRUE),
-    lambda = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
-    gamma = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
-    nrounds = p_int(lower = 100, upper = 200)
+    eta = p_dbl(lower = 0.01, upper = 0.3),
+    gamma = p_dbl(lower = 0, upper = 9),
+    colsample_bytree = p_dbl(lower = 0.5, upper = 1),
+    max_depth = p_int(lower = 3, upper = 10)
   )
   # Hyperparameters and features tuner
   afs <- make_tuner(inner,
@@ -134,13 +138,13 @@ lgbm <- function(inner,
                  fselector) {
   # Make learner
   learner <- lrn("classif.lightgbm",
+                 num_threads = 10,
                  predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
-    learning_rate = p_dbl(lower = 0.01, upper = 0.3),
-    num_leaves = p_int(lower = 10, upper = 100),
-    max_depth = p_int(lower = 5, upper = 10),
-    min_data_in_leaf = p_int(lower = 5, upper = 30)
+    learning_rate = p_dbl(lower = 0.01, upper = 0.7),
+    num_leaves = p_int(lower = 10, upper = 50),
+    max_depth = p_int(lower = 5, upper = 10)
   )
   # Hyperparameters and features tuner
   afs <- make_tuner(inner,

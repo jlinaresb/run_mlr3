@@ -3,7 +3,7 @@ require(pbapply)
 setwd(here::here())
 source("~/git/run_mlr3/code/utils/validation_utils.r")
 
-res_dir <- "~/git/arthritis-drugs/02_training/results/antiTNF_gsva/"
+res_dir <- "results/antiTNF_gsva/"
 files <- list.files(res_dir)
 
 res <- pblapply(files, function(i) {
@@ -12,69 +12,63 @@ res <- pblapply(files, function(i) {
   return(rr$score(measures = measures)[, c(2, 4, 7, 9:13)])
 })
 res <- data.table::rbindlist(res)
-res2 <- res %>% 
-  group_by(task_id, learner_id) %>% 
+res2 <- res %>%
+  group_by(task_id, learner_id) %>%
   summarise(across(everything(), list(mean)))
 
 
+# Plot resample results
+res_melt <- reshape2::melt(res,
+                            measure.vars = c("Accuracy",
+                                             "AUCROC",
+                                             "PRAUC",
+                                             "Sensitivity",
+                                             "Specificity"))
+
+require(ggplot2)
+require(viridis)
+msr <- "Sensitivity"
+toPlot <- res_melt[which(res_melt$variable == msr), ]
+ggplot(toPlot,
+  aes(x = learner_id, y = value, color = learner_id)) +
+  geom_violin(trim = TRUE) +
+  geom_jitter(position = position_jitter(.5)) +
+  scale_color_manual(values = viridis(4)) +
+  facet_wrap(~task_id) +
+  theme_bw() +
+  theme(axis.text.x = element_blank()) +
+  theme(legend.position = "top")
+
+
+# Check model errors
+i <- 6
 model <- readRDS(file.path(res_dir, files[i]))
-print(files[i])
+model$result$learners[[1]]$learner$
 
-# =================
-# See aggregate performances
-rr <- model$result
-rr$score(measures = measures)[, c(2, 4, 7, 9:13)]
+model$result$prediction()$score(measures = measures)
+model$result$prediction()$confusion
 
-# see performances by fold
-preds <- rr$predictions()
-lapply(preds, function(x) list(x$confusion))
+# Predictions
+preds <- model$result$predictions()[[2]]
 
+# Pheno data
+pheno_dir <- "~/git/arthritis-drugs/data/antiTNF/pheno/blood/"
+pheno_files <- list.files(pheno_dir)
+pheno <- lapply(pheno_files, function(x) {
+                              readRDS(file.path(pheno_dir, x))
+})
+pheno <- data.table::rbindlist(pheno)
 
-
-# HASTA AQUÍ!
-# TODO:
-# - Hacer función para formatear los datos externos
-# - Hacer el predict por fold
-# - algún plot?
-metacohort = readRDS("~/git/arthritis-drugs/data/antiTNF/metacohort/metacohort.rds")
-metacohort = metacohort[, -c(1:8)]
-
-table(metacohort$cohort)
-gse1 = metacohort[which(metacohort$cohort == "GSE12051"), ]
-gse2 = metacohort[which(metacohort$cohort == "GSE15258"), ]
-gse3 = metacohort[which(metacohort$cohort == "GSE33377"), ]
-gse4 = metacohort[which(metacohort$cohort == "GSE42296"), ]
-gse5 = metacohort[which(metacohort$cohort == "GSE58795"), ]
-all = rbind.data.frame(gse1, gse2, gse3, gse4, gse5)
-gse = list(GSE12051 = gse1, 
-           GSE15258 = gse2, 
-           GSE33377 = gse3, 
-           GSE42296 = gse4, 
-           GSE58795 = gse5)
+# Data
+data <- readRDS("~/git/run_mlr3/data/antiTNF_gsva/cell_gsva_n28")
 
 
-source('~/git/run_mlr3/code/utils/pipeline_utils.r')
-ext_task1 = making_task(data = subset(gse[[1]], select = -cohort), dataname = names(gse)[1], target = "response", positive = "responder")
-ext_task2 = making_task(data = subset(gse[[2]], select = -cohort), dataname = names(gse)[2], target = "response", positive = "responder")
-ext_task3 = making_task(data = subset(gse[[3]], select = -cohort), dataname = names(gse)[3], target = "response", positive = "responder")
-ext_task4 = making_task(data = subset(gse[[4]], select = -cohort), dataname = names(gse)[4], target = "response", positive = "responder")
-ext_task_all = making_task(data = subset(all, select = -cohort), dataname = "all", target = "response", positive = "responder")
+data_s <- data[preds$row_ids, ]
+pheno_s <- pheno[match(rownames(data_s), pheno$id), ]
 
-ext_task1 = preprocess(ext_task1, normalize = T, removeConstant = F, filterFeatures = F)
-ext_task2 = preprocess(ext_task2, normalize = T, removeConstant = F, filterFeatures = F)
-ext_task3 = preprocess(ext_task3, normalize = T, removeConstant = F, filterFeatures = F)
-ext_task4 = preprocess(ext_task4, normalize = T, removeConstant = F, filterFeatures = F)
-ext_task_all = preprocess(ext_task_all, normalize = T, removeConstant = F, filterFeatures = F)
+pheno_s$prediction <- preds$response
+pheno_s$truth <- preds$truth
+pheno_s$success <- ifelse(pheno_s$prediction == pheno_s$truth, "yes", "no")
+stopifnot(pheno_s$response == pheno_s$truth)
 
-ext_task = list(ext_task1,
-                ext_task2,
-                ext_task3,
-                ext_task4)
-
-for (i in seq_along(ext_task)) {
-  print(sapply(1:k, function(x) finalModels[[x]]$predict(ext_task_all)$score(measures)))
-}
-
-
-
-
+table(pheno_s$cohort, pheno_s$success, pheno_s$response)
