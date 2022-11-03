@@ -106,7 +106,6 @@ xgboost <- function(inner,
                     fselector) {
   # Make learner
   learner <- lrn("classif.xgboost",
-                 nrounds = 100,
                  nthread = 10,
                  predict_type = "prob")
   # Hyperparameter space

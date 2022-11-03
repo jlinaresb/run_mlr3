@@ -45,11 +45,11 @@ folds <- 5
 # Tuning
 fselector <- FALSE
 measure <- msr("classif.acc")
-method_at <- tnr("grid_search", resolution = 20, batch_size = batch_size)
+method_at <- tnr("random_search", batch_size = batch_size)
 method_afs <- "random_search"
 inner <- rsmp("holdout", ratio = 0.7)
 outer <- rsmp("repeated_cv", repeats = 10, folds = folds)
-term_evals <- NULL
+term_evals <- 10000
 
 
 # Cesga arguments
