@@ -12,8 +12,8 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "antiTNF_gsva_2"
-inputDir <- file.path(base_path, "data/antiTNF_gsva/")
+ExperimentName <- "antiTNF_GSE129705"
+inputDir <- file.path(base_path, "data/antiTNF_GSE129705/train/")
 outDir <- file.path(base_path, "results/")
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
@@ -35,11 +35,11 @@ normalize <- FALSE
 filterFeatures <- FALSE
 
 # Pipeline
-resampling <- TRUE
+resampling <- FALSE
 
 # Parallelization
 parallel <- TRUE
-batch_size <- 10
+batch_size <- 20
 folds <- 5
 
 # Tuning
@@ -47,7 +47,7 @@ fselector <- FALSE
 measure <- msr("classif.acc")
 method_at <- tnr("grid_search", resolution = 20, batch_size = batch_size)
 method_afs <- "random_search"
-inner <- rsmp("holdout", ratio = 0.8)
+inner <- rsmp("holdout", ratio = 0.7)
 outer <- rsmp("repeated_cv", repeats = 10, folds = folds)
 term_evals <- NULL
 
