@@ -10,7 +10,7 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Arguments
 # ===
 seed <- 1993
-cesga <- FALSE
+cesga <- TRUE
 
 ExperimentName <- "antiTNF_GSE129705"
 inputDir <- file.path(base_path, "data/antiTNF_GSE129705/train/")
@@ -23,7 +23,7 @@ if (dir.exists(outDir) == FALSE) {
 
 # Algorithms
 path_algs <- models_path
-pattern <- "rf.r"
+pattern <- ".r"
 
 # Input data characteristics
 target <- "response"
