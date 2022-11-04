@@ -10,7 +10,7 @@ exec_path <- file.path(base_path, "code/Exec/")
 # Arguments
 # ===
 seed <- 1993
-cesga <- TRUE
+cesga <- FALSE
 
 ExperimentName <- "antiTNF_GSE129705"
 inputDir <- file.path(base_path, "data/antiTNF_GSE129705/train/")
@@ -23,7 +23,7 @@ if (dir.exists(outDir) == FALSE) {
 
 # Algorithms
 path_algs <- models_path
-pattern <- ".r"
+pattern <- "rf.r"
 
 # Input data characteristics
 target <- "response"
@@ -35,27 +35,27 @@ normalize <- FALSE
 filterFeatures <- FALSE
 
 # Pipeline
-resampling <- FALSE
+resampling <- TRUE
 
 # Parallelization
 parallel <- TRUE
-batch_size <- 20
-folds <- 5
+batch_size <- 14
+folds <- 10
 
 # Tuning
-fselector <- FALSE
+fselector <- TRUE
 measure <- msr("classif.acc")
 method_at <- tnr("random_search", batch_size = batch_size)
 method_afs <- "random_search"
-inner <- rsmp("holdout", ratio = 0.7)
-outer <- rsmp("repeated_cv", repeats = 10, folds = folds)
-term_evals <- 10000
+inner <- rsmp("holdout", ratio = 0.8)
+outer <- rsmp("cv", folds = folds)
+term_evals <- 100
 
 
 # Cesga arguments
 # ===
-part <- "short"
-time <- "06:00:00"
-mem <- "120GB"
+part <- "requeue"
+time <- "1-00:00:00"
+mem <- "64GB"
 nodes <- 1
-ntasks <- 20
+ntasks <- 24
