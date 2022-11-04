@@ -54,8 +54,8 @@ term_evals <- 100
 
 # Cesga arguments
 # ===
-part <- "requeue"
-time <- "1-00:00:00"
+part <- "medium"
+time <- "1-06:00:00"
 mem <- "64GB"
 nodes <- 1
 ntasks <- 24
