@@ -25,7 +25,7 @@ glmnet_pipeline(
     term_evals = term_evals,
     fselector = fselector,
     workers = ntasks,
-    outDir = outDir,
+    outDir = args[3],
     parallel = parallel,
     resampling = resampling,
     folds = folds,
