@@ -3,6 +3,7 @@ make_tuner <- function(inner,
                        learner,
                        ps,
                        term_evals,
+                       n_evals_afs,
                        method_at,
                        fselector,
                        method_afs
@@ -24,7 +25,7 @@ make_tuner <- function(inner,
                         learner = at,
                         resampling = inner,
                         measure = measure,
-                        term_evals = 200
+                        term_evals = n_evals_afs
     )
     }
 

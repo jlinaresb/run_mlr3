@@ -17,6 +17,7 @@ rf_pipeline <- function(data,
                         method_at,
                         method_afs,
                         term_evals,
+                        n_evals_afs,
                         fselector,
                         workers,
                         outDir,
@@ -42,6 +43,7 @@ rf_pipeline <- function(data,
                           method_at,
                           method_afs,
                           term_evals,
+                          n_evals_afs,
                           fselector)
 
   if (resampling == TRUE) {

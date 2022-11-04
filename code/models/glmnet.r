@@ -23,6 +23,7 @@ glmnet_pipeline(
     method_at = method_at,
     method_afs = method_afs,
     term_evals = term_evals,
+    n_evals_afs = n_evals_afs,
     fselector = fselector,
     workers = ntasks,
     outDir = args[3],

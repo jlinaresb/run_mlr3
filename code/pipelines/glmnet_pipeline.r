@@ -18,6 +18,7 @@ glmnet_pipeline <- function(
                         method_at,
                         method_afs,
                         term_evals,
+                        n_evals_afs,
                         fselector,
                         workers,
                         outDir,
@@ -43,6 +44,7 @@ glmnet_pipeline <- function(
                     method_at,
                     method_afs,
                     term_evals,
+                    n_evals_afs,
                     fselector)
 
   if (resampling == TRUE) {
