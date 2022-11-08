@@ -40,23 +40,23 @@ resampling <- TRUE
 # Parallelization
 parallel <- TRUE
 batch_size <- 10
-folds <- 10
+folds <- 10  # no son folds! es para paralelizar el outer
 
 # Tuning
 fselector <- TRUE
-measure <- msr("classif.acc")
+measure <- msr("classif.auc")
 method_at <- tnr("random_search", batch_size = batch_size)
 method_afs <- "random_search"
 inner <- rsmp("holdout", ratio = 0.8)
-outer <- rsmp("cv", folds = folds)
+outer <- rsmp("cv", folds = 3)
 term_evals <- 100
-n_evals_afs <- 300
+n_evals_afs <- 500
 
 
 # Cesga arguments
 # ===
-part <- "medium"
-time <- "3-00:00:00"
+part <- "short"
+time <- "24:00:00"
 mem <- "120GB"
 nodes <- 1
 ntasks <- 24

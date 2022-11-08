@@ -74,6 +74,6 @@ xgboost_pipeline <- function(data,
   res <- list(task = task,
               result = rr)
   saveRDS(res,
-          file = paste0(outDir, "/", id, "_glmnet_", dataname, ".rds"))
+          file = paste0(outDir, "/", id, "_xgboost_", dataname, ".rds"))
 
 }
