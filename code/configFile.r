@@ -56,7 +56,7 @@ n_evals_afs <- 500
 # Cesga arguments
 # ===
 part <- "short"
-time <- "24:00:00"
+time <- "06:00:00"
 mem <- "120GB"
 nodes <- 1
 ntasks <- 24
