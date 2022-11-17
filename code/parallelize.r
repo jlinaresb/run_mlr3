@@ -19,8 +19,6 @@ if (cesga == TRUE) {
 files <- list.files(path = inputDir)
 input_algs <- list.files(path = path_algs,
                  pattern = pattern)
-input_algs <- input_algs[-grep("lgbm", input_algs)]
-input_algs <- input_algs[-grep("xgboost", input_algs)]
 
 for (i in seq_along(files)) {
   for (j in seq_along(input_algs)) {
