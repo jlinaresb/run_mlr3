@@ -43,13 +43,13 @@ batch_size <- 10
 folds <- 10  # no son folds! es para paralelizar el outer
 
 # Tuning
-fselector <- TRUE
-measure <- msr("classif.auc")
+fselector <- FALSE
+measure <- msr("classif.acc")
 method_at <- tnr("random_search", batch_size = batch_size)
 method_afs <- "random_search"
 inner <- rsmp("holdout", ratio = 0.8)
 outer <- rsmp("cv", folds = 3)
-term_evals <- 100
+term_evals <- 10000
 n_evals_afs <- 500
 
 

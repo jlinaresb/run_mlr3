@@ -120,8 +120,6 @@ xgboost <- function(inner,
   # Hyperparameter space
   ps <- ps(
     eta = p_dbl(lower = 0.01, upper = 0.3),
-    gamma = p_dbl(lower = 0, upper = 9),
-    colsample_bytree = p_dbl(lower = 0.5, upper = 1),
     max_depth = p_int(lower = 3, upper = 10)
   )
   # Hyperparameters and features tuner
@@ -152,8 +150,7 @@ lgbm <- function(inner,
                  predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
-    learning_rate = p_dbl(lower = 0.01, upper = 0.7),
-    num_leaves = p_int(lower = 10, upper = 50),
+    learning_rate = p_dbl(lower = 0.01, upper = 0.3),
     max_depth = p_int(lower = 5, upper = 10)
   )
   # Hyperparameters and features tuner
