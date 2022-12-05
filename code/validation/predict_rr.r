@@ -8,12 +8,12 @@ res_dir <- "results/antiTNF_GSE129705_GSE15258/"
 cohorts <- c("GSE129705", "GSE12051",
              "GSE15258", "GSE33377",
              "GSE42296", "GSE58795")
-test_pheno <- readRDS("data/antiTNF_GSE129705_GSE15258/test/test_ssgsea.rds")
+test_pheno <- readRDS("data/antiTNF_GSE129705_GSE15258/test/test_gsva.rds")
 
 # See CV results
-models_files <- list.files(res_dir, pattern = "ssgsea")
+models_files <- list.files(res_dir, pattern = "gsva")
 
-m <- 4
+m <- 10
 model <- readRDS(file.path(res_dir, models_files[m]))
 rr <- model$result
 
@@ -32,25 +32,22 @@ iters <- 1:rr$iters
 for (i in seq_along(iters)) {
     print(rr$predictions()[[iters[i]]]$score(measures = measures))}
 
-k <- 2
 ext_preds <- lapply(iters, function(k) {
 
     # Trained learner
-    l <- model$result$learners[[k]]
+    l <- model$result$learners[[k]]$model$learner
 
     # Extract features
-    final_feats <- l$fselect_instance$result_feature_set
+#    final_feats <- l$fselect_instance$result_feature_set
 
     # Predict by cohort
     res <- list()
     for (i in seq_along(cohorts)) {
         c <- cohorts[i]
-        test <- test_pheno[which(test_pheno$cohort == c),
-                        match(c(final_feats, "response"),
-                                colnames(test_pheno))]
+        test <- test_pheno[which(test_pheno$cohort == c), ]
         dim(test)
         # Prediction
-        pred <- l$learner$model$learner$predict_newdata(test, task = NULL)
+        pred <- l$predict_newdata(test, task = NULL)
         pred <- pred$set_threshold(threshold = threshold)
         pred_m <- pred$score(measures = measures)
         res[[i]] <- data.frame(
@@ -71,3 +68,6 @@ ext_preds <- lapply(iters, function(k) {
 validation <- rbindlist(ext_preds)
 validation$algorithm <- sapply(strsplit(models_files[m], "_"), "[", 2)
 View(validation)
+
+
+
