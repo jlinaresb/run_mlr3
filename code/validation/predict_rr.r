@@ -4,13 +4,13 @@ source("code/utils/validation_utils.r")
 options(warn = -1)
 
 # Arguments
-trainset <- "antiTNF_GSE129705_GSE15258"
+trainset <- "antiTNF_GSE129705_GSE15258_k10"
 res_dir <- file.path("results", trainset)
 
 # See CV results
-models_files <- list.files(res_dir, pattern = "glmnet")
-models_files <- models_files[grep("gsvacells", models_files)]
-m <- 1
+models_files <- list.files(res_dir)
+#models_files <- models_files[grep("gsvacells", models_files)]
+#m <- 1
 res_cv <- list()
 for (m in seq_along(models_files)) {
     model <- readRDS(file.path(res_dir, models_files[m]))
@@ -22,9 +22,8 @@ for (m in seq_along(models_files)) {
                 "non-responder" = 1 - thold)
     pred <- rr$prediction()
     pred <- pred$set_threshold(threshold = threshold)
-    pred$confusion
+    #pred$confusion
     pred <- pred$score(measures = measures)
-    pred
 
     res_cv[[m]] <- data.frame(
         Accuracy = pred[1],
@@ -34,7 +33,7 @@ for (m in seq_along(models_files)) {
         Specificity = pred[5],
         trainset = trainset,
         algorithm = sapply(strsplit(models_files[m], "_"), "[", 2),
-        score = sapply(strsplit(models_files[m], "_"), "[", 4))
+        score = sapply(strsplit(models_files[m], "_"), "[", 5))
 }
 res_cv <- rbindlist(res_cv)
 View(res_cv)
