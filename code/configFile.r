@@ -12,8 +12,8 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "antiTNF_GSE129705_GSE15258_k10"
-inputDir <- file.path(base_path, "data/antiTNF_GSE129705_GSE15258/train/")
+ExperimentName <- "antiTNF_GSE129705_no_moderates"
+inputDir <- file.path(base_path, "data/antiTNF_v2")
 outDir <- file.path(base_path, "results/")
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
