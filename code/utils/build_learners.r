@@ -52,7 +52,7 @@ glmnet <- function(inner,
   learner <- lrn("classif.glmnet",
                 predict_type = "prob")
   learner$encapsulate <- c(train = "evaluate", predict = "evaluate")
-  learner$fallback <- lrn("classif.log_reg", predict_type = "prob")
+  learner$fallback <- lrn("classif.svm", predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
     alpha = p_dbl(lower = 0, upper = 1),
