@@ -17,7 +17,7 @@ randomForest <- function(inner,
                   importance = "impurity",
                   predict_type = "prob")
   learner$encapsulate <- c(train = "evaluate", predict = "evaluate")
-  #learner$fallback <- lrn("classif.log_reg", predict_type = "prob")
+  learner$fallback <- lrn("classif.svm", predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
     mtry = p_int(lower = 3, upper = 15),
@@ -86,8 +86,8 @@ svm <- function(inner,
                  predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
-    cost = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
-    gamma = p_dbl(lower = 1e-5, upper = 1e5, logscale = TRUE),
+    cost = p_dbl(lower = 1e-5, upper = 1e5, logscale = FALSE),
+    gamma = p_dbl(lower = 1e-5, upper = 1e5, logscale = FALSE),
     kernel = p_fct(levels = c("polynomial", "radial", "sigmoid")),
     type = p_fct(levels = "C-classification")
   )
