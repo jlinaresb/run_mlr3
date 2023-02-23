@@ -17,7 +17,7 @@ randomForest <- function(inner,
                   importance = "impurity",
                   predict_type = "prob")
   learner$encapsulate <- c(train = "evaluate", predict = "evaluate")
-  learner$fallback <- lrn("classif.log_reg", predict_type = "prob")
+  #learner$fallback <- lrn("classif.log_reg", predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
     mtry = p_int(lower = 3, upper = 15),
