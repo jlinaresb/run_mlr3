@@ -13,8 +13,8 @@ seed <- 1993
 cesga <- TRUE
 
 ExperimentName <- "clinical_preciseads"
-inputDir <- file.path(base_path, "data/precisead")
-outDir <- file.path(base_path, "results/")
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/"
+outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/res"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
     message(paste("Creating", ExperimentName, "directory!"))
@@ -26,7 +26,7 @@ path_algs <- models_path
 pattern <- ".r"
 
 # Input data characteristics
-target <- "Clusters"
+target <- "clusters"
 positive <- NULL
 
 # Data preprocessing
