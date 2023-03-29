@@ -12,8 +12,8 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "clinical_preciseads"
-inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/"
+ExperimentName <- "try2"
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/try2/"
 outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/res"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
@@ -49,7 +49,7 @@ method_at <- tnr("grid_search", batch_size = batch_size)
 method_afs <- "random_search"
 inner <- rsmp("holdout", ratio = 0.8)
 outer <- rsmp("cv", folds = 10)
-term_evals <- 10000
+term_evals <- 50000
 n_evals_afs <- 500
 
 

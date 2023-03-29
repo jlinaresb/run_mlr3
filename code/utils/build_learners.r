@@ -86,8 +86,8 @@ svm <- function(inner,
                  predict_type = "prob")
   # Hyperparameter space
   ps <- ps(
-    cost = p_dbl(lower = 1e-5, upper = 1e5, logscale = FALSE),
-    gamma = p_dbl(lower = 1e-5, upper = 1e5, logscale = FALSE),
+    cost = p_dbl(lower = 1e-12, upper = 1e12, logscale = FALSE),
+    gamma = p_dbl(lower = 1e-12, upper = 1e12, logscale = FALSE),
     kernel = p_fct(levels = c("polynomial", "radial", "sigmoid")),
     type = p_fct(levels = "C-classification")
   )
