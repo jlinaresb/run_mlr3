@@ -26,8 +26,8 @@ path_algs <- models_path
 pattern <- ".r"
 
 # Input data characteristics
-target <- "clusters"
-positive <- NULL
+target <- "binary_cluster"
+positive <- "Lymphoid"
 
 # Data preprocessing
 removeConstant <- TRUE
