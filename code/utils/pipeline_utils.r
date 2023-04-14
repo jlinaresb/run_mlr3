@@ -32,7 +32,7 @@ preprocess <- function(task,
   if (filterFeatures == TRUE) {
     filter <- po("filter",
                  filter = flt("kruskal_test"),
-                 filter.frac = 0.01)
+                 filter.frac = 0.3)
     task <- filter$train(list(task = task))$output
     print("Features have been filtered!")
   }

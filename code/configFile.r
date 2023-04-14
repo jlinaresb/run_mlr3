@@ -12,9 +12,9 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "try5-binary"
-inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/try5-binary/"
-outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/res"
+ExperimentName <- "BV_Microbiome"
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/BV_Microbiome/"
+outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/results"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
     message(paste("Creating", ExperimentName, "directory!"))
@@ -26,13 +26,13 @@ path_algs <- models_path
 pattern <- ".r"
 
 # Input data characteristics
-target <- "clusters_2"
-positive <- "cluster_2"
+target <- "cluster"
+positive <- "N"
 
 # Data preprocessing
 removeConstant <- TRUE
-normalize <- TRUE
-filterFeatures <- FALSE
+normalize <- FALSE
+filterFeatures <- TRUE
 
 # Pipeline
 resampling <- TRUE
