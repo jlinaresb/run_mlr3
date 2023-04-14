@@ -27,7 +27,7 @@ pattern <- ".r"
 
 # Input data characteristics
 target <- "cluster"
-positive <- "N"
+positive <- NULL
 
 # Data preprocessing
 removeConstant <- TRUE
