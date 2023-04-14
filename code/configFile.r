@@ -12,8 +12,8 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "try4-cascade"
-inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/try4-cascade/train/model1/"
+ExperimentName <- "try5-binary"
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/try5-binary/"
 outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/res"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
