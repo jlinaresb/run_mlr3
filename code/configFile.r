@@ -12,7 +12,7 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "BV_Microbiome"
+ExperimentName <- "BV_Microbiome_v2"
 inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/BV_Microbiome/"
 outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/results"
 outDir <- file.path(outDir, ExperimentName)
@@ -32,7 +32,7 @@ positive <- NULL
 # Data preprocessing
 removeConstant <- TRUE
 normalize <- FALSE
-filterFeatures <- TRUE
+filterFeatures <- FALSE
 
 # Pipeline
 resampling <- TRUE
