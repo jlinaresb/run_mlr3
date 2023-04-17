@@ -13,7 +13,7 @@ seed <- 1993
 cesga <- TRUE
 
 ExperimentName <- "BV_Microbiome_v2"
-inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/BV_Microbiome/"
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/BV_Microbiome/train/"
 outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/results"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
