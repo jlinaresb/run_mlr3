@@ -12,9 +12,9 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "BV_Microbiome_v2"
-inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/BV_Microbiome/train/"
-outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/results"
+ExperimentName <- "try5-sixClasses"
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/try5-sixClasses"
+outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/res"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
     message(paste("Creating", ExperimentName, "directory!"))
@@ -26,7 +26,7 @@ path_algs <- models_path
 pattern <- ".r"
 
 # Input data characteristics
-target <- "cluster"
+target <- "target"
 positive <- NULL
 
 # Data preprocessing
