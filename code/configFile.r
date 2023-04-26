@@ -12,8 +12,8 @@ exec_path <- file.path(base_path, "code/Exec/")
 seed <- 1993
 cesga <- TRUE
 
-ExperimentName <- "try5-sixClasses"
-inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/toRun/try5-sixClasses"
+ExperimentName <- "BV_Microbiome_treatment"
+inputDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/run_mlr3/data/BV_Microbiome/treatment"
 outDir <- "/mnt/netapp2/Store_uni/home/ulc/co/jlb/git/clinical_aid_clusters/04_clinical_model/res"
 outDir <- file.path(outDir, ExperimentName)
 if (dir.exists(outDir) == FALSE) {
@@ -26,8 +26,8 @@ path_algs <- models_path
 pattern <- ".r"
 
 # Input data characteristics
-target <- "target"
-positive <- NULL
+target <- "status"
+positive <- "Failed"
 
 # Data preprocessing
 removeConstant <- TRUE
